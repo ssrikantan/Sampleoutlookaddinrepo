@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<!-- Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+4  See LICENSE in the project root for license information -->
+
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.1.min.js"></script>
+
+    <!-- For the Office UI Fabric, go to http://aka.ms/office-ui-fabric to learn more. -->
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.min.css">
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.components.min.css">
+    <script>
+
+
+        Office.initialize = function () {
+            $('#button1').click(one);
+            $('#button2').click(two);
+        };
+
+        function one()
+        {
+            var SoapMessage = '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:glob="http://testuri.com/Global"> <soap:Header/> <soap:Body> <glob:EmailActivityBundleMaintainRequest_sync_V1>                                       <BasicMessageHeader> <ID>df434c8c9db3492d959c5eea0f7cbc5e</ID> <UUID /> <ReferenceID /> <ReferenceUUID /> </BasicMessageHeader> <EmailActivity actionCode="04" businessTransactionDocumentReferenceListCompleteTransmissionIndicator="true" textListCompleteTransimissionIndicator="true"> <ObjectNodeSenderTechnicalID/> <EmployeeResponsibleParty> <EmailURI>test@test.com</EmailURI> </EmployeeResponsibleParty> <Name>Sample</Name> <InformationSensitivityCode>1</InformationSensitivityCode> <PriorityCode>3</PriorityCode> <InitiatorCode>2</InitiatorCode> <DataOriginTypeCode>2</DataOriginTypeCode> <TransmittedDateTime>2017-01-16T08:10:12Z</TransmittedDateTime> <CorrespondenceTransmissionStatusCode>3</CorrespondenceTransmissionStatusCode> <MessageFromParty> <EmailURI>administrator@mysapbbdhack.onmicrosoft.com</EmailURI> <Name>administrator</Name> </MessageFromParty> <MessageToParty> <EmailURI>test@test.com</EmailURI> <Name>dummy user</Name> </MessageToParty> <Text actionCode="04"> <TextTypeCode>10002</TextTypeCode> <ContentText>Hi</ContentText> <CreationDateTime>2017-01-16T08:10:25Z</CreationDateTime> </Text> <MainActivityParty> <BusinessPartnerInternalID>CP100992</BusinessPartnerInternalID> </MainActivityParty> </EmailActivity> </glob:EmailActivityBundleMaintainRequest_sync_V1> </soap:Body> </soap:Envelope> ';
+
+            $.ajax({
+                type: "POST",
+                crossDomain: true,
+                withCredentials: true,
+                accessControlAllowOrigin: "*",
+                url: "https://<soapendpoint.com",
+                contentType: "text/xml; charset=utf-8",
+                data: SoapMessage,
+                password: "password",
+                username: "demouser1",
+                success: function (data) {
+                    alert('success');
+                },
+                error: function (request, status, error) {
+                    // alert('error');
+                    Office.context.ui.messageParent("ERROR" + error);
+                    
+                   }
+            });
+
+        }
+
+        function two() {
+            Office.context.ui.messageParent("Picked 2");
+        }
+
+    </script>
+</head>
+<body>
+    <p class="ms-font-xxl ms-fontColor-neutralSecondary ms-fontWeight-semilight">Username</p>
+    <button class="ms-Button ms-Button--primary" id="button1">
+        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span>
+        <span class="ms-Button-label" id="button1-text">1</span>
+        <span class="ms-Button-description" id="button1-desc">Number 1</span>
+    </button>
+    <button class="ms-Button ms-Button--primary" id="button2">
+        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span>
+        <span class="ms-Button-label" id="button2-text">2</span>
+        <span class="ms-Button-description" id="button2-desc">Number 2</span>
+    </button>
+</body>
+</html>
